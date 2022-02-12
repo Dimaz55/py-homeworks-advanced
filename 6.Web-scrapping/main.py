@@ -37,11 +37,8 @@ def habr_article_parser(filter_word_list, mode):
             print(f'Обработка страницы {href}...')
             rg = requests.get(href)
             detail_page = bs4.BeautifulSoup(rg.text, 'html.parser')
-
-            # with open("detail_index.html") as fp:
-            #     detail_page = bs4.BeautifulSoup(fp, 'html.parser')
-
             content = detail_page.find('div', id='post-content-body').find_all('p')
+            
             article_text = ''
             for paragraph in content:
                 article_text += paragraph.text.strip().lower() + ' '
