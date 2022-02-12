@@ -5,7 +5,6 @@ import requests
 def habr_article_parser(filter_word_list, mode):
 
     def words_search():
-        search_result = []
         if any([filter_word in article_text for filter_word in filter_word_list]):
             art_date = article.find('time').attrs.get('title')[:10]
             art_title = article.find('a', class_='tm-article-snippet__title-link').find('span').text
