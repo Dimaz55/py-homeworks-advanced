@@ -7,10 +7,10 @@ nested_list = [
 
 def flatlist_generator(nested):
     for sub in nested:
-        if not isinstance(sub, list):
-            yield sub
-        else:
+        if isinstance(sub, list):
             yield from flatlist_generator(sub)
+        else:
+            yield sub
 
 
 if __name__ == '__main__':

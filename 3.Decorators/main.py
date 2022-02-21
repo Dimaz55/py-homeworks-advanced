@@ -14,8 +14,8 @@ def logger(path=default):
             old_res = old_function(*args, **kwargs)
             with open(path, 'a') as log_file:
                 current_dt = dt.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                log_entry = f'>> {current_dt}: '\
-                            f'Called <{old_function.__name__}{args}>\n'\
+                log_entry = f'>> {current_dt}: ' \
+                            f'Called <{old_function.__name__}{args}>\n' \
                             f'--- result:\n'
                 if old_res:
                     if isinstance(old_res, list):
@@ -34,6 +34,7 @@ def logger(path=default):
         return new_function
 
     return decorator
+
 
 @logger()
 def habr_article_parser(filter_word_list, mode):
