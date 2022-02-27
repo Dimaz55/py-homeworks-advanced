@@ -1,26 +1,26 @@
 import unittest
-
 import requests
 
-from yadisk import YaDiskMkDir
 
 class TestCreateDirOnYaDisk(unittest.TestCase):
-    def setUp(self) -> None:
+    @classmethod
+    def setUpClass(cls) -> None:
         with open('token.txt') as file:
-            self.token = file.readline().strip()
-        self.url = 'https://cloud-api.yandex.net/v1/disk/resources/'
-        self.headers = {
+            cls.token = file.readline().strip()
+        cls.url = 'https://cloud-api.yandex.net/v1/disk/resources/'
+        cls.headers = {
             'Content-type': 'application/json',
-            'Authorization': f'OAuth {self.token}'
+            'Authorization': f'OAuth {cls.token}'
         }
-        self.path = 'TestDir'
-        self.params = {'path': self.path}
+        cls.path = 'TestDir'
+        cls.params = {'path': cls.path}
 
-    def tearDown(self) -> None:
+    @classmethod
+    def tearDownClass(cls) -> None:
         requests.delete(
-            self.url,
-            headers=self.headers,
-            params=self.params
+            cls.url,
+            headers=cls.headers,
+            params=cls.params
         )
 
     def test_create_dir(self):
@@ -32,11 +32,6 @@ class TestCreateDirOnYaDisk(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_create_dir_already_exist(self):
-        requests.put(
-            self.url,
-            headers=self.headers,
-            params=self.params
-        )
         response = requests.put(
             self.url,
             headers=self.headers,
